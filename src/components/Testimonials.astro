@@ -1,0 +1,32 @@
+---
+import { testimonials } from '../data/site';
+---
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Customer Reviews</span>
+      <h2>Trusted by families & students</h2>
+    </div>
+    <div class="grid grid-3">
+      {testimonials.map((t) => (
+        <figure class="card review">
+          <div class="review__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>“{t.quote}”</blockquote>
+          <figcaption>
+            <strong>{t.author}</strong>
+            <span>{t.location}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .review { display: flex; flex-direction: column; gap: 0.75rem; margin: 0; }
+  .review__stars { color: var(--orange); letter-spacing: 2px; font-size: 1.1rem; }
+  .review blockquote { margin: 0; font-size: 1.02rem; color: var(--ink); line-height: 1.6; flex: 1; }
+  .review figcaption { display: flex; flex-direction: column; }
+  .review figcaption strong { color: var(--navy); font-family: var(--font-head); }
+  .review figcaption span { color: var(--muted); font-size: 0.88rem; }
+</style>

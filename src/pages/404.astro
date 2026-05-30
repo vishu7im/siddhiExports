@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { whatsappLink } from '../data/site';
+import Icon from '../components/Icon.astro';
+---
+<Layout title="Page Not Found" description="The page you’re looking for doesn’t exist." path="/404">
+  <section class="section nf">
+    <div class="container">
+      <span class="eyebrow">Error 404</span>
+      <h1>Oops — page not found</h1>
+      <p>The page you’re looking for doesn’t exist or has moved. Let’s get you back on track.</p>
+      <div class="nf__btns">
+        <a href="/" class="btn btn--navy btn--lg">Back to Home</a>
+        <a href="/get-quote" class="btn btn--primary btn--lg">Get a Quote</a>
+        <a href={whatsappLink()} class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> WhatsApp Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf { text-align: center; }
+  .nf p { color: var(--muted); max-width: 50ch; margin-inline: auto; font-size: 1.1rem; }
+  .nf__btns { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 1.8rem; }
+  .nf__btns :global(svg) { width: 22px; height: 22px; }
+</style>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SiddhiExports">
+  <rect width="64" height="64" rx="14" fill="#0B3C5D"/>
+  <!-- parcel box -->
+  <path d="M32 12 52 22v20L32 52 12 42V22z" fill="#F4A300"/>
+  <path d="M32 12 52 22 32 32 12 22z" fill="#ffb733"/>
+  <path d="M32 32v20L12 42V22z" fill="#d98e00"/>
+  <path d="M32 32v20l20-10V22z" fill="#F4A300"/>
+  <path d="M22 17 42 27v6l-4-2v-6L18 19z" fill="#0B3C5D" opacity=".85"/>
+</svg>

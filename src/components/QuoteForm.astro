@@ -1,0 +1,403 @@
+---
+import { site, destinationOptions } from '../data/site';
+import Icon from './Icon.astro';
+---
+<form
+  id="quoteForm"
+  class="qf"
+  data-public-key={site.emailjs.publicKey}
+  data-service-id={site.emailjs.serviceId}
+  data-template-id={site.emailjs.templateId}
+  data-whatsapp={site.whatsapp}
+  data-recipient={site.formRecipient}
+  data-sender={site.senderName}
+  novalidate
+>
+  <!-- Progress -->
+  <ol class="qf__steps" aria-hidden="true">
+    <li class="is-current" data-dot="1"><span>1</span>Customer Details</li>
+    <li data-dot="2"><span>2</span>Parcel Information</li>
+    <li data-dot="3"><span>3</span>Submit Inquiry</li>
+  </ol>
+
+  <!-- Honeypot (spam trap) -->
+  <div class="qf__hp" aria-hidden="true">
+    <label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <!-- STEP 1 -->
+  <fieldset class="qf__panel is-active" data-step="1">
+    <legend class="qf__legend">Customer Details</legend>
+    <div class="qf__grid">
+      <label class="qf__field">
+        <span>Full Name <i>*</i></span>
+        <input type="text" name="full_name" required autocomplete="name" placeholder="Your full name" />
+      </label>
+      <label class="qf__field">
+        <span>Mobile Number <i>*</i></span>
+        <input type="tel" name="mobile" required autocomplete="tel" placeholder="e.g. 98765 43210" />
+      </label>
+      <label class="qf__field">
+        <span>WhatsApp Number <i>*</i></span>
+        <input type="tel" name="whatsapp_number" required placeholder="WhatsApp number" />
+      </label>
+      <label class="qf__field">
+        <span>Email Address <i>*</i></span>
+        <input type="email" name="email" required autocomplete="email" placeholder="you@email.com" />
+      </label>
+    </div>
+    <div class="qf__nav">
+      <span></span>
+      <button type="button" class="btn btn--navy" data-next>Next: Parcel Info <Icon name="arrow" /></button>
+    </div>
+  </fieldset>
+
+  <!-- STEP 2 -->
+  <fieldset class="qf__panel" data-step="2">
+    <legend class="qf__legend">Parcel Information</legend>
+    <div class="qf__grid">
+      <label class="qf__field">
+        <span>Destination Country <i>*</i></span>
+        <select name="destination" required>
+          <option value="" disabled selected>Select destination</option>
+          {destinationOptions.map((c) => <option value={c}>{c}</option>)}
+        </select>
+      </label>
+      <label class="qf__field">
+        <span>Pin Code <i>*</i></span>
+        <input type="text" name="pincode" required inputmode="numeric" placeholder="Pickup PIN code" />
+      </label>
+      <label class="qf__field qf__field--full">
+        <span>Pickup Address in India <i>*</i></span>
+        <input type="text" name="pickup_address" required placeholder="House / street / city" />
+      </label>
+      <label class="qf__field">
+        <span>Parcel Weight (approx) <i>*</i></span>
+        <input type="text" name="weight" required placeholder="e.g. 5 kg" />
+      </label>
+      <label class="qf__field">
+        <span>Parcel Type / Contents <i>*</i></span>
+        <input type="text" name="parcel_type" required placeholder="e.g. food, clothes, documents" />
+      </label>
+      <label class="qf__field">
+        <span>Preferred Pickup Date <i>*</i></span>
+        <input type="date" name="pickup_date" required />
+      </label>
+      <label class="qf__field">
+        <span>Approx. Parcel Value <small>(optional)</small></span>
+        <input type="text" name="parcel_value" placeholder="e.g. ₹5,000" />
+      </label>
+      <label class="qf__field">
+        <span>Urgent Delivery? <small>(optional)</small></span>
+        <select name="urgent">
+          <option value="No" selected>No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </label>
+      <label class="qf__field qf__field--full">
+        <span>Additional Notes <small>(optional)</small></span>
+        <textarea name="notes" rows="3" placeholder="Anything else we should know?"></textarea>
+      </label>
+    </div>
+    <div class="qf__nav">
+      <button type="button" class="btn btn--ghost" data-back>Back</button>
+      <button type="button" class="btn btn--navy" data-next>Review <Icon name="arrow" /></button>
+    </div>
+  </fieldset>
+
+  <!-- STEP 3 -->
+  <fieldset class="qf__panel" data-step="3">
+    <legend class="qf__legend">Submit Inquiry</legend>
+    <p class="qf__review-intro">Please review your details, then request your quote.</p>
+    <dl class="qf__review" id="qfReview"></dl>
+
+    <div id="qfStatus" class="qf__status" role="status" aria-live="polite"></div>
+
+    <div class="qf__nav qf__nav--submit">
+      <button type="button" class="btn btn--ghost" data-back>Back</button>
+      <button type="submit" class="btn btn--primary btn--lg" id="qfSubmit">Get Shipping Rate</button>
+    </div>
+    <p class="qf__or">or</p>
+    <a href="#" id="qfWhatsapp" class="btn btn--whatsapp btn--block" target="_blank" rel="noopener">
+      <Icon name="whatsapp" /> Send my details on WhatsApp instead
+    </a>
+    <p class="qf__fineprint">We’ll reply with your best shipping rate. Your details are only used to contact you about your parcel.</p>
+  </fieldset>
+</form>
+
+<style>
+  .qf {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(1.3rem, 4vw, 2.4rem);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  /* progress */
+  .qf__steps {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 0 1.8rem;
+    counter-reset: s;
+  }
+  .qf__steps li {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--muted);
+    border-top: 3px solid var(--line);
+    padding-top: 0.7rem;
+  }
+  .qf__steps li span {
+    width: 26px; height: 26px; flex: none;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--line);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .qf__steps li.is-current,
+  .qf__steps li.is-done { color: var(--navy); border-top-color: var(--orange); }
+  .qf__steps li.is-current span,
+  .qf__steps li.is-done span { background: var(--orange); color: var(--navy-900); }
+  @media (max-width: 560px) {
+    .qf__steps li { font-size: 0; gap: 0; }
+    .qf__steps li span { font-size: 0.85rem; }
+  }
+
+  .qf__hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }
+
+  .qf__panel { display: none; border: 0; padding: 0; margin: 0; }
+  .qf__panel.is-active { display: block; animation: fade 0.25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .qf__legend { font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; color: var(--navy); margin-bottom: 1.2rem; padding: 0; }
+
+  .qf__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.1rem; }
+  .qf__field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .qf__field--full { grid-column: 1 / -1; }
+  .qf__field > span { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+  .qf__field i { color: #d33; font-style: normal; }
+  .qf__field small { color: var(--muted); font-weight: 500; }
+  .qf__field input,
+  .qf__field select,
+  .qf__field textarea {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink);
+    width: 100%;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .qf__field input:focus,
+  .qf__field select:focus,
+  .qf__field textarea:focus {
+    outline: none;
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(244,163,0,0.18);
+  }
+  .qf__field input.is-invalid,
+  .qf__field select.is-invalid { border-color: #d33; box-shadow: 0 0 0 3px rgba(221,51,51,0.12); }
+  @media (max-width: 560px) { .qf__grid { grid-template-columns: 1fr; } }
+
+  .qf__nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.6rem; }
+  .qf__nav :global(svg) { width: 18px; height: 18px; }
+  .qf__nav--submit { margin-top: 1.2rem; }
+
+  .qf__review-intro { color: var(--muted); }
+  .qf__review { display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 1rem; background: var(--bg-soft); border-radius: var(--radius-sm); padding: 1.1rem 1.2rem; margin: 0 0 1rem; }
+  .qf__review dt { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
+  .qf__review dd { margin: 0; color: var(--ink); font-size: 0.95rem; word-break: break-word; }
+
+  .qf__status { display: none; padding: 0.9rem 1.1rem; border-radius: var(--radius-sm); font-weight: 500; margin-bottom: 1rem; }
+  .qf__status.is-error { display: block; background: #fdeaea; color: #a12020; border: 1px solid #f3c2c2; }
+  .qf__status.is-success { display: block; background: #e8f6ed; color: #176a36; border: 1px solid #b9e3c8; }
+  .qf__status.is-loading { display: block; background: var(--orange-100); color: var(--orange-600); border: 1px solid #f3dca6; }
+
+  .qf__or { text-align: center; color: var(--muted); margin: 1rem 0 0.6rem; }
+  .qf__or::before, .qf__or::after { content: ''; }
+  #qfWhatsapp :global(svg) { width: 22px; height: 22px; }
+  .qf__fineprint { text-align: center; font-size: 0.82rem; color: var(--muted); margin-top: 1rem; }
+
+  button[disabled] { opacity: 0.65; cursor: not-allowed; }
+</style>
+
+<script>
+  import emailjs from '@emailjs/browser';
+
+  const form = document.getElementById('quoteForm') as HTMLFormElement | null;
+  if (form) {
+    const panels = Array.from(form.querySelectorAll<HTMLElement>('.qf__panel'));
+    const stepItems = Array.from(form.querySelectorAll<HTMLElement>('.qf__steps li'));
+    const reviewEl = document.getElementById('qfReview') as HTMLElement;
+    const statusEl = document.getElementById('qfStatus') as HTMLElement;
+    const submitBtn = document.getElementById('qfSubmit') as HTMLButtonElement;
+    const waLink = document.getElementById('qfWhatsapp') as HTMLAnchorElement;
+
+    const cfg = {
+      publicKey: form.dataset.publicKey || '',
+      serviceId: form.dataset.serviceId || '',
+      templateId: form.dataset.templateId || '',
+      whatsapp: form.dataset.whatsapp || '',
+      recipient: form.dataset.recipient || '',
+      sender: form.dataset.sender || 'Website',
+    };
+
+    // Friendly labels for the review + WhatsApp message
+    const LABELS: Record<string, string> = {
+      full_name: 'Full Name',
+      mobile: 'Mobile',
+      whatsapp_number: 'WhatsApp',
+      email: 'Email',
+      destination: 'Destination',
+      pincode: 'Pin Code',
+      pickup_address: 'Pickup Address',
+      weight: 'Weight',
+      parcel_type: 'Parcel Type',
+      pickup_date: 'Pickup Date',
+      parcel_value: 'Approx. Value',
+      urgent: 'Urgent',
+      notes: 'Notes',
+    };
+
+    let step = 0;
+
+    function showStep(i: number) {
+      step = i;
+      panels.forEach((p, idx) => p.classList.toggle('is-active', idx === i));
+      stepItems.forEach((li, idx) => {
+        li.classList.toggle('is-current', idx === i);
+        li.classList.toggle('is-done', idx < i);
+      });
+      form!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function validatePanel(panel: HTMLElement): boolean {
+      const fields = Array.from(
+        panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]')
+      );
+      let ok = true;
+      for (const f of fields) {
+        const valid = f.checkValidity() && f.value.trim() !== '';
+        f.classList.toggle('is-invalid', !valid);
+        if (!valid && ok) f.focus();
+        ok = ok && valid;
+      }
+      return ok;
+    }
+
+    form.querySelectorAll('[data-next]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        if (validatePanel(panels[step])) {
+          if (step === panels.length - 2) buildReview();
+          showStep(step + 1);
+        }
+      })
+    );
+    form.querySelectorAll('[data-back]').forEach((btn) =>
+      btn.addEventListener('click', () => showStep(Math.max(0, step - 1)))
+    );
+
+    function collect(): Record<string, string> {
+      const data = new FormData(form!);
+      const out: Record<string, string> = {};
+      for (const key of Object.keys(LABELS)) {
+        const v = (data.get(key) as string) || '';
+        out[key] = v.trim();
+      }
+      return out;
+    }
+
+    function buildReview() {
+      const d = collect();
+      reviewEl.innerHTML = Object.keys(LABELS)
+        .filter((k) => d[k])
+        .map((k) => `<dt>${LABELS[k]}</dt><dd>${escapeHtml(d[k])}</dd>`)
+        .join('');
+      waLink.href = waHref(d);
+    }
+
+    function escapeHtml(s: string) {
+      return s.replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string)
+      );
+    }
+
+    function waHref(d: Record<string, string>) {
+      const lines = ['*New Parcel Inquiry — SiddhiExports*', ''];
+      for (const k of Object.keys(LABELS)) if (d[k]) lines.push(`${LABELS[k]}: ${d[k]}`);
+      return `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
+    function setStatus(kind: 'loading' | 'success' | 'error', msg: string) {
+      statusEl.className = `qf__status is-${kind}`;
+      statusEl.textContent = msg;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot: silently succeed for bots
+      if ((form.querySelector('[name="company"]') as HTMLInputElement)?.value) return;
+      if (!validatePanel(panels[1]) || !validatePanel(panels[0])) {
+        setStatus('error', 'Please complete the required fields in the earlier steps.');
+        return;
+      }
+
+      const d = collect();
+
+      // EmailJS not configured yet → guide the user to WhatsApp instead.
+      if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
+        setStatus(
+          'error',
+          'Online form isn’t connected yet. Please tap “Send my details on WhatsApp instead” below — it’s ready.'
+        );
+        return;
+      }
+
+      // Build a tidy plain-text summary + subject so the email reads well
+      // even with a minimal EmailJS template.
+      const summary = Object.keys(LABELS)
+        .filter((k) => d[k])
+        .map((k) => `${LABELS[k]}: ${d[k]}`)
+        .join('\n');
+      const params = {
+        ...d,
+        to_email: cfg.recipient, //  query@siddhiexports.in
+        from_name: cfg.sender, //    "SiddhiExports Website"
+        reply_to: d.email, //        so you can reply straight to the customer
+        subject: `New Parcel Inquiry — ${d.full_name} → ${d.destination}`,
+        message: summary,
+      };
+
+      submitBtn.disabled = true;
+      setStatus('loading', 'Sending your inquiry…');
+      try {
+        await emailjs.send(cfg.serviceId, cfg.templateId, params, { publicKey: cfg.publicKey });
+        setStatus(
+          'success',
+          '✅ Thank you! Your inquiry has been sent. We’ll contact you shortly with your shipping rate.'
+        );
+        form.reset();
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        setStatus(
+          'error',
+          'Sorry, something went wrong sending the form. Please use the WhatsApp button below — your details are pre-filled.'
+        );
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

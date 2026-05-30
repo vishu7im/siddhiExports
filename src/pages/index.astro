@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Countries from '../components/Countries.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { services } from '../data/site';
+---
+<Layout
+  title="International Parcel & Courier Services from India"
+  description="Send parcels safely from India to the UK, Canada, USA, Australia & Europe. Doorstep pickup, affordable rates, trusted courier network & tracking support. Free quote in under 1 minute."
+  path="/"
+>
+  <Hero />
+  <TrustBadges />
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Our Services</span>
+        <h2>What we ship for you</h2>
+        <p>From homemade food to important documents — packed, picked up and delivered with care.</p>
+      </div>
+      <div class="grid grid-3">
+        {services.map((s) => <ServiceCard icon={s.icon} title={s.title} text={s.text} />)}
+      </div>
+    </div>
+  </section>
+
+  <HowItWorks />
+  <Countries />
+  <Testimonials />
+  <FAQ />
+  <FinalCTA />
+</Layout>

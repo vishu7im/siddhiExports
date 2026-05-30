@@ -1,0 +1,226 @@
+---
+import { site, navLinks, whatsappLink } from "../data/site";
+import Icon from "./Icon.astro";
+const year = 2026;
+---
+
+<footer class="ftr">
+  <div class="container ftr__grid">
+    <div>
+      <a href="/" class="brand" aria-label={`${site.name} home`}>
+        <span class="brand__chip"
+          ><img
+            src="/logo.png"
+            width="95"
+            height="50"
+            alt={`${site.name} logo`}
+          /></span
+        >
+        <span class="brand__name">Siddhi<span>Exports</span></span>
+      </a>
+      <p class="ftr__about">
+        Reliable international parcel & shipping services from {
+          site.address.city
+        }, {site.address.state}. Sending parcels safely to the UK, Canada, USA,
+        Australia & Europe.
+      </p>
+      <div class="ftr__social">
+        <a
+          href={site.instagram}
+          target="_blank"
+          rel="noopener"
+          aria-label="Instagram">Instagram</a
+        >
+        <a
+          href={site.facebook}
+          target="_blank"
+          rel="noopener"
+          aria-label="Facebook">Facebook</a
+        >
+      </div>
+    </div>
+
+    <div>
+      <h3 class="ftr__h">Quick Links</h3>
+      <ul class="ftr__links">
+        {
+          navLinks.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))
+        }
+        <li><a href="/get-quote">Get a Quote</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="ftr__h">Contact</h3>
+      <ul class="ftr__contact">
+        <li>
+          <Icon name="phone" /><a href={`tel:+${site.phone}`}
+            >{site.phoneDisplay}</a>
+        </li>
+        <li>
+          <Icon name="mail" /><a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <Icon name="pin" /><span
+            >{site.address.line1}, {site.address.city}, {site.address.state}
+            {site.address.postalCode}</span>
+        </li>
+        <li><Icon name="clock" /><span>{site.workingHours}</span></li>
+      </ul>
+      <a
+        href={whatsappLink()}
+        class="btn btn--whatsapp ftr__wa"
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="whatsapp" /> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="ftr__bar">
+    <div class="container ftr__bar-inner">
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <p class="ftr__note">
+        International parcel & shipping support · {site.address.city}, India
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--navy-900);
+    color: #b9cdda;
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .ftr__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.3fr;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #fff;
+  }
+  .brand__chip {
+    display: inline-flex;
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px 8px;
+    line-height: 0;
+  }
+  .brand__chip img {
+    height: 40px;
+    width: auto;
+  }
+  .brand__name span {
+    color: var(--orange);
+  }
+  .ftr__about {
+    margin-top: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #9fb6c6;
+    max-width: 34ch;
+  }
+  .ftr__social {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .ftr__social a {
+    color: var(--orange);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .ftr__h {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+  .ftr__links {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .ftr__links a {
+    color: #b9cdda;
+    font-size: 0.95rem;
+  }
+  .ftr__links a:hover {
+    color: var(--orange);
+  }
+
+  .ftr__contact {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .ftr__contact li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    font-size: 0.95rem;
+  }
+  .ftr__contact :global(svg) {
+    width: 20px;
+    height: 20px;
+    color: var(--orange);
+    flex: none;
+    margin-top: 2px;
+  }
+  .ftr__contact a,
+  .ftr__contact span {
+    color: #b9cdda;
+  }
+  .ftr__contact a:hover {
+    color: var(--orange);
+  }
+  .ftr__wa {
+    margin-top: 1.2rem;
+  }
+  .ftr__wa :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ftr__bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: 1.2rem;
+  }
+  .ftr__bar-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .ftr__bar p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #7e96a7;
+  }
+
+  @media (max-width: 820px) {
+    .ftr__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+  @media (max-width: 540px) {
+    .ftr__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

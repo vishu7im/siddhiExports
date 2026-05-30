@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappLink } from '../data/site';
+---
+<Layout
+  title="Contact Us — Parcel Inquiries & Support"
+  description="Contact SiddhiExports for international parcel inquiries. WhatsApp, call or email us — based in Kurukshetra, Haryana. We reply fast."
+  path="/contact"
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact Us</span>
+      <h1>Need help with your parcel? Talk to our team today.</h1>
+      <p>Reach us on WhatsApp, call, or email — we’re quick to respond.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact">
+      <div class="contact__cards">
+        <a href={whatsappLink()} class="card contact__card" target="_blank" rel="noopener">
+          <span class="icon-badge"><Icon name="whatsapp" /></span>
+          <h3>WhatsApp</h3>
+          <p>Chat with us instantly</p>
+          <span class="contact__value">{site.phoneDisplay}</span>
+        </a>
+        <a href={`tel:+${site.phone}`} class="card contact__card">
+          <span class="icon-badge"><Icon name="phone" /></span>
+          <h3>Call Us</h3>
+          <p>Tap to call directly</p>
+          <span class="contact__value">{site.phoneDisplay}</span>
+        </a>
+        <a href={`mailto:${site.email}`} class="card contact__card">
+          <span class="icon-badge"><Icon name="mail" /></span>
+          <h3>Email</h3>
+          <p>We reply within a day</p>
+          <span class="contact__value">{site.email}</span>
+        </a>
+        <div class="card contact__card">
+          <span class="icon-badge"><Icon name="clock" /></span>
+          <h3>Working Hours</h3>
+          <p>We’re available</p>
+          <span class="contact__value">{site.workingHours}</span>
+        </div>
+      </div>
+
+      <div class="contact__side">
+        <div class="card contact__addr">
+          <span class="icon-badge"><Icon name="pin" /></span>
+          <h3>Visit / Pickup Location</h3>
+          <address>
+            {site.address.line1}<br />
+            {site.address.city}, {site.address.state} {site.address.postalCode}<br />
+            {site.address.country}
+          </address>
+          <a href="/get-quote" class="btn btn--primary">Request Parcel Pickup</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container contact__map">
+      <iframe
+        src={site.mapEmbedSrc}
+        title={`${site.name} location on Google Maps`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    background: radial-gradient(900px 400px at 75% -20%, #eaf3fa, transparent), var(--bg-soft);
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+  }
+  .page-hero p { color: var(--muted); font-size: 1.1rem; }
+
+  .contact { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; align-items: start; }
+  .contact__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .contact__card { text-align: left; }
+  .contact__card h3 { margin-bottom: 0.15rem; }
+  .contact__card p { color: var(--muted); margin: 0 0 0.5rem; font-size: 0.9rem; }
+  .contact__value { font-family: var(--font-head); font-weight: 600; color: var(--navy); }
+
+  .contact__addr address { font-style: normal; color: var(--muted); line-height: 1.7; margin: 0.4rem 0 1.2rem; }
+
+  .contact__map { margin-top: 1.5rem; }
+  .contact__map iframe {
+    width: 100%;
+    height: 360px;
+    border: 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .contact__cards { grid-template-columns: 1fr; } }
+</style>

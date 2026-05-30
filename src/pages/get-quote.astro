@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+---
+<Layout
+  title="Get a Shipping Quote — Parcel Inquiry Form"
+  description="Request a free international shipping quote from SiddhiExports. Fill the quick parcel inquiry form in under a minute and we’ll share your best rate."
+  path="/get-quote"
+>
+  <section class="quote-hero">
+    <div class="container">
+      <span class="eyebrow">Free Quote · Under 1 Minute</span>
+      <h1>Get your shipping quote</h1>
+      <p>Tell us about your parcel and we’ll get back to you with your best rate. No obligation.</p>
+      <ul class="quote-hero__points">
+        <li><Icon name="check" /> Doorstep pickup</li>
+        <li><Icon name="check" /> Fast WhatsApp reply</li>
+        <li><Icon name="check" /> Trusted courier network</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section quote-form-wrap">
+    <div class="container">
+      <QuoteForm />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .quote-hero {
+    background: linear-gradient(180deg, var(--navy), var(--navy-900));
+    color: #dce8f0;
+    padding-block: clamp(2.5rem, 6vw, 3.5rem);
+    text-align: center;
+  }
+  .quote-hero h1 { color: #fff; }
+  .quote-hero p { color: #b9cdda; max-width: 56ch; margin-inline: auto; font-size: 1.1rem; }
+  .quote-hero__points {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 1.2rem;
+    justify-content: center; margin-top: 1.2rem; font-weight: 600; font-size: 0.92rem;
+  }
+  .quote-hero__points li { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .quote-hero__points :global(svg) { width: 18px; height: 18px; color: var(--orange); }
+
+  .quote-form-wrap { background: var(--bg-soft); margin-top: -2px; }
+</style>

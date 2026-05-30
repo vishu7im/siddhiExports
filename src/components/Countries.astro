@@ -1,0 +1,47 @@
+---
+import { countries } from '../data/site';
+---
+<section class="section section--soft" id="countries">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Global Reach</span>
+      <h2>Countries We Ship To</h2>
+      <p>We deliver parcels from India to families and students across the world.</p>
+    </div>
+    <div class="countries">
+      {countries.map((c) => (
+        <div class="ctry card">
+          <img src={c.flag} width="60" height="40" alt={`${c.name} flag`} loading="lazy" />
+          <span>{c.name}</span>
+        </div>
+      ))}
+    </div>
+    <p class="countries__cta">
+      Need a shipping quote? <a href="/contact">Contact us today</a> or
+      <a href="/get-quote">request a quote online</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .countries {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+  .ctry {
+    text-align: center;
+    padding: 1.2rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .ctry img { border-radius: 4px; box-shadow: 0 2px 6px rgba(11,60,93,0.15); }
+  .ctry span { font-family: var(--font-head); font-weight: 600; font-size: 0.92rem; color: var(--navy); }
+  .countries__cta { text-align: center; margin-top: 1.8rem; font-weight: 500; color: var(--muted); }
+  .countries__cta a { font-weight: 600; color: var(--orange-600); }
+
+  @media (max-width: 860px) { .countries { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 460px) { .countries { grid-template-columns: repeat(2, 1fr); } }
+</style>

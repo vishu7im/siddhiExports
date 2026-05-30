@@ -1,0 +1,91 @@
+<!--
+  ===========================================================================
+  EmailJS template body for SiddhiExports quote-form submissions.
+  Paste the markup below into the EmailJS template "Content" editor
+  (switch the editor to its code/HTML view first).
+
+  EmailJS template SETTINGS to use alongside this body:
+    • To Email   : query@siddhiexports.in          (or {{to_email}})
+    • From Name  : {{from_name}}                     (shows "SiddhiExports Website")
+    • From Email : info@siddhiexports.in             (your Google Workspace sender)
+    • Reply To   : {{reply_to}}                       (the customer's email)
+    • Subject    : {{subject}}                        ("New Parcel Inquiry — Name → Country")
+
+  All {{variables}} below are sent automatically by the website form.
+  ===========================================================================
+-->
+<div style="margin:0;padding:0;background:#f5f8fb;font-family:Arial,Helvetica,sans-serif;color:#16242e;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f8fb;padding:24px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+               style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e4ebf1;">
+          <!-- Header -->
+          <tr>
+            <td style="background:#0b3c5d;padding:22px 28px;">
+              <span style="color:#ffffff;font-size:20px;font-weight:bold;">Siddhi<span style="color:#f4a300;">Exports</span></span>
+              <div style="color:#b9cdda;font-size:13px;margin-top:4px;">New parcel inquiry from your website</div>
+            </td>
+          </tr>
+          <!-- Accent bar -->
+          <tr><td style="height:4px;background:#f4a300;"></td></tr>
+
+          <!-- Customer -->
+          <tr>
+            <td style="padding:24px 28px 6px;">
+              <h2 style="margin:0 0 12px;color:#0b3c5d;font-size:16px;">👤 Customer Details</h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+                <tr><td style="padding:6px 0;color:#5a6b76;width:160px;">Full Name</td><td style="padding:6px 0;font-weight:bold;">{{full_name}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Mobile</td><td style="padding:6px 0;">{{mobile}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">WhatsApp</td><td style="padding:6px 0;">{{whatsapp_number}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Email</td><td style="padding:6px 0;"><a href="mailto:{{email}}" style="color:#0b3c5d;">{{email}}</a></td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr><td style="padding:0 28px;"><hr style="border:none;border-top:1px solid #e4ebf1;margin:14px 0;"></td></tr>
+
+          <!-- Parcel -->
+          <tr>
+            <td style="padding:0 28px 8px;">
+              <h2 style="margin:0 0 12px;color:#0b3c5d;font-size:16px;">📦 Parcel Information</h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+                <tr><td style="padding:6px 0;color:#5a6b76;width:160px;">Destination</td><td style="padding:6px 0;font-weight:bold;">{{destination}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Pickup Address</td><td style="padding:6px 0;">{{pickup_address}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Pin Code</td><td style="padding:6px 0;">{{pincode}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Weight</td><td style="padding:6px 0;">{{weight}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Parcel Type</td><td style="padding:6px 0;">{{parcel_type}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Pickup Date</td><td style="padding:6px 0;">{{pickup_date}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Approx. Value</td><td style="padding:6px 0;">{{parcel_value}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Urgent?</td><td style="padding:6px 0;">{{urgent}}</td></tr>
+                <tr><td style="padding:6px 0;color:#5a6b76;">Notes</td><td style="padding:6px 0;">{{notes}}</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding:18px 28px 26px;">
+              <a href="https://wa.me/{{whatsapp_number}}"
+                 style="display:inline-block;background:#25d366;color:#073a1c;font-weight:bold;text-decoration:none;padding:11px 20px;border-radius:999px;font-size:14px;">
+                Reply on WhatsApp
+              </a>
+              &nbsp;
+              <a href="mailto:{{email}}"
+                 style="display:inline-block;background:#f4a300;color:#072639;font-weight:bold;text-decoration:none;padding:11px 20px;border-radius:999px;font-size:14px;">
+                Reply by Email
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#072639;padding:16px 28px;color:#7e96a7;font-size:12px;">
+              This inquiry was submitted from siddhiexports.in. Reply-to is set to the customer’s email.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

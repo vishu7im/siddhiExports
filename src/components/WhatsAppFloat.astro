@@ -1,0 +1,41 @@
+---
+import { whatsappLink } from '../data/site';
+import Icon from './Icon.astro';
+---
+<a
+  href={whatsappLink()}
+  class="wa-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Chat with us on WhatsApp"
+>
+  <Icon name="whatsapp" />
+  <span class="wa-float__label">WhatsApp</span>
+</a>
+
+<style>
+  .wa-float {
+    position: fixed;
+    right: clamp(1rem, 3vw, 1.6rem);
+    bottom: clamp(1rem, 3vw, 1.6rem);
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25d366;
+    color: #073a1c;
+    font-family: var(--font-head);
+    font-weight: 600;
+    padding: 0.85rem 1.1rem;
+    border-radius: 999px;
+    box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .wa-float:hover { transform: translateY(-3px) scale(1.03); color: #073a1c; }
+  .wa-float :global(svg) { width: 26px; height: 26px; }
+
+  @media (max-width: 560px) {
+    .wa-float__label { display: none; }
+    .wa-float { padding: 0.95rem; }
+  }
+</style>

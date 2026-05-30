@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  icon: string;
+  title: string;
+  text: string;
+}
+const { icon, title, text } = Astro.props;
+---
+<div class="card svc">
+  <span class="icon-badge"><Icon name={icon} /></span>
+  <h3>{title}</h3>
+  <p>{text}</p>
+  <a href="/get-quote" class="svc__link">Get a quote <Icon name="arrow" /></a>
+</div>
+
+<style>
+  .svc { display: flex; flex-direction: column; }
+  .svc h3 { margin-bottom: 0.35rem; }
+  .svc p { color: var(--muted); margin: 0 0 1rem; font-size: 0.96rem; flex: 1; }
+  .svc__link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: var(--font-head); font-weight: 600; font-size: 0.92rem; color: var(--orange-600);
+  }
+  .svc__link :global(svg) { width: 16px; height: 16px; transition: transform 0.15s; }
+  .svc:hover .svc__link :global(svg) { transform: translateX(4px); }
+</style>

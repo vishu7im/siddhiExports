@@ -1,0 +1,23 @@
+---
+import { whatsappLink } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="section section--navy cta">
+  <div class="container cta__inner">
+    <h2>Ready to Send Your Parcel Internationally?</h2>
+    <p>Get a free shipping quote in under a minute — or message us directly on WhatsApp.</p>
+    <div class="cta__btns">
+      <a href="/get-quote" class="btn btn--primary btn--lg">Get Quote</a>
+      <a href={whatsappLink()} class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+        <Icon name="whatsapp" /> WhatsApp Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta__inner { text-align: center; max-width: 640px; margin-inline: auto; }
+  .cta__inner p { color: #b9cdda; font-size: 1.1rem; }
+  .cta__btns { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 1.6rem; }
+  .cta__btns :global(svg) { width: 22px; height: 22px; }
+</style>

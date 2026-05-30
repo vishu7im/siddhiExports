@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" width="60" height="40" role="img" aria-label="Canada flag">
+  <clipPath id="r"><rect width="60" height="40" rx="4"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="60" height="40" fill="#fff"/>
+    <rect width="15" height="40" fill="#D52B1E"/>
+    <rect x="45" width="15" height="40" fill="#D52B1E"/>
+    <path d="M30 9l2 5 5-2-2 5 4 1-4 3 1 4-4-1-2 5-2-5-4 1 1-4-4-3 4-1-2-5 5 2z" fill="#D52B1E"/>
+  </g>
+</svg>

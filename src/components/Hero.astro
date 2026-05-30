@@ -1,0 +1,125 @@
+---
+import { whatsappLink } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow">From India · Worldwide Delivery</span>
+      <h1>Fast & Reliable International Parcel Services From India</h1>
+      <p class="hero__sub">
+        Send parcels safely to the UK, Canada, USA, Australia & Europe with a
+        trusted international shipping network. Doorstep pickup, honest rates &
+        tracking support.
+      </p>
+      <div class="hero__cta">
+        <a href="/get-quote" class="btn btn--primary btn--lg"
+          >Get Shipping Quote</a
+        >
+        <a
+          href={whatsappLink()}
+          class="btn btn--whatsapp btn--lg"
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="whatsapp" /> WhatsApp Us
+        </a>
+        <a href="/get-quote" class="btn btn--ghost btn--lg"
+          >Book Parcel Inquiry</a
+        >
+      </div>
+      <ul class="hero__points">
+        <li><Icon name="check" /> Doorstep pickup</li>
+        <li><Icon name="check" /> Quote in under 1 minute</li>
+        <li><Icon name="check" /> Trusted courier network</li>
+      </ul>
+    </div>
+    <div class="hero__art">
+      <img
+        src="/images/globe.png"
+        width="640"
+        height="520"
+        alt="International parcel delivery from India to the world"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1200px 500px at 80% -10%, #eaf3fa, transparent),
+      linear-gradient(180deg, #f5f8fb, #ffffff);
+    overflow: hidden;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .hero__sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    color: var(--muted);
+    max-width: 52ch;
+  }
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+  }
+  .hero__cta :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .hero__points {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.95rem;
+  }
+  .hero__points li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hero__points :global(svg) {
+    width: 18px;
+    height: 18px;
+    color: var(--orange-600);
+  }
+  .hero__art img {
+    width: 100%;
+    height: auto;
+    max-width: 560px;
+    margin-inline: auto;
+    filter: drop-shadow(0 20px 40px rgba(11, 60, 93, 0.15));
+  }
+
+  @media (max-width: 860px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero__sub {
+      margin-inline: auto;
+    }
+    .hero__cta,
+    .hero__points {
+      justify-content: center;
+    }
+    .hero__art {
+      order: -1;
+      max-width: 380px;
+      margin-inline: auto;
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="520" viewBox="0 0 640 520" fill="none" role="img" aria-label="International parcel delivery illustration">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf2f8"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="320" cy="260" r="240" fill="url(#sky)"/>
+  <!-- globe -->
+  <circle cx="320" cy="270" r="150" fill="#0B3C5D"/>
+  <circle cx="320" cy="270" r="150" fill="none" stroke="#1d5a82" stroke-width="2"/>
+  <g stroke="#3b7da6" stroke-width="2" fill="none" opacity=".7">
+    <ellipse cx="320" cy="270" rx="60" ry="150"/>
+    <ellipse cx="320" cy="270" rx="120" ry="150"/>
+    <line x1="170" y1="270" x2="470" y2="270"/>
+    <path d="M185 205 Q320 240 455 205"/>
+    <path d="M185 335 Q320 300 455 335"/>
+  </g>
+  <!-- continents blobs -->
+  <g fill="#F4A300" opacity=".9">
+    <path d="M250 210 q30-18 60-6 t40 22 q6 24-18 30 t-50 4 q-40-10-32-50z"/>
+    <path d="M360 290 q34-6 44 18 t-2 40 q-30 14-48-6 t6-52z"/>
+  </g>
+  <!-- dashed flight path -->
+  <path d="M150 360 Q330 120 510 200" stroke="#F4A300" stroke-width="4" stroke-dasharray="2 14" stroke-linecap="round" fill="none"/>
+  <!-- plane -->
+  <g transform="translate(498,188) rotate(28)">
+    <path d="M0 0 L34 6 L34 -6 Z" fill="#0B3C5D"/>
+    <path d="M10 0 L26 -16 L20 0 Z" fill="#0B3C5D"/>
+    <path d="M10 0 L26 16 L20 0 Z" fill="#0B3C5D"/>
+  </g>
+  <!-- parcel -->
+  <g transform="translate(120,300)">
+    <path d="M60 0 120 30v70L60 130 0 100V30z" fill="#F4A300"/>
+    <path d="M60 0 120 30 60 60 0 30z" fill="#ffc24d"/>
+    <path d="M60 60v70L0 100V30z" fill="#d98e00"/>
+    <rect x="44" y="14" width="32" height="92" fill="#0B3C5D" opacity=".25"/>
+  </g>
+</svg>

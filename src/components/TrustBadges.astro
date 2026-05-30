@@ -1,0 +1,27 @@
+---
+import { trustPoints } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="section section--soft" id="why-us">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>Shipping made simple, safe & stress-free</h2>
+      <p>Everything families and students need to send parcels home or abroad with confidence.</p>
+    </div>
+    <div class="grid grid-3">
+      {trustPoints.map((t) => (
+        <div class="card trust">
+          <span class="icon-badge"><Icon name={t.icon} /></span>
+          <h3>{t.title}</h3>
+          <p>{t.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust h3 { margin-bottom: 0.35rem; }
+  .trust p { color: var(--muted); margin: 0; font-size: 0.96rem; }
+</style>
