@@ -23,7 +23,7 @@ import Icon from './Icon.astro';
     align-items: center;
     gap: 0.5rem;
     background: #25d366;
-    color: #073a1c;
+    color: #fff;
     font-family: var(--font-head);
     font-weight: 600;
     padding: 0.85rem 1.1rem;
@@ -31,11 +31,12 @@ import Icon from './Icon.astro';
     box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .wa-float:hover { transform: translateY(-3px) scale(1.03); color: #073a1c; }
+  .wa-float:hover { transform: translateY(-3px) scale(1.03); color: #fff; }
   .wa-float :global(svg) { width: 26px; height: 26px; }
 
   @media (max-width: 560px) {
     .wa-float__label { display: none; }
     .wa-float { padding: 0.95rem; }
+    .wa-float :global(svg) { width: 28px; height: 28px; }
   }
 </style>

@@ -7,6 +7,8 @@ import { site } from '../data/site';
 
 interface Props {
   title?: string;
+  /** Exact <title> to use verbatim (no "| SiteName" suffix). Overrides `title`. */
+  fullTitle?: string;
   description?: string;
   /** Path-only canonical, e.g. "/services". Defaults to current path. */
   path?: string;
@@ -15,37 +17,93 @@ interface Props {
 
 const {
   title,
+  fullTitle,
   description = site.description,
   path = Astro.url.pathname,
-  image = '/og-image.svg',
+  image = '/og-image.png',
 } = Astro.props;
 
-const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
+const pageTitle =
+  fullTitle ?? (title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`);
 const canonical = new URL(path, Astro.site ?? Astro.url).href;
 const ogImage = new URL(image, Astro.site ?? Astro.url).href;
+const logoUrl = new URL('/logo.png', Astro.site ?? Astro.url).href;
 
-// Structured data — LocalBusiness for local SEO / rich results.
+// Structured data — Organization + LocalBusiness + WebSite graph for local SEO / rich results.
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': `${site.url}/#business`,
-  name: site.name,
-  description: site.description,
-  url: site.url,
-  email: site.email,
-  telephone: `+${site.phone}`,
-  image: ogImage,
-  priceRange: '₹₹',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.line1,
-    addressLocality: site.address.city,
-    addressRegion: site.address.state,
-    postalCode: site.address.postalCode,
-    addressCountry: 'IN',
-  },
-  areaServed: ['United Kingdom', 'Canada', 'United States', 'Australia', 'Germany', 'Europe'],
-  sameAs: [site.instagram, site.facebook],
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site.url}/#organization`,
+      name: site.name,
+      legalName: site.legalName,
+      url: site.url,
+      logo: { '@type': 'ImageObject', url: logoUrl },
+      email: site.email,
+      telephone: `+${site.phone}`,
+      sameAs: [site.instagram, site.facebook],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: `+${site.phone}`,
+        contactType: 'customer service',
+        email: site.email,
+        availableLanguage: ['en', 'hi'],
+        areaServed: 'IN',
+      },
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${site.url}/#business`,
+      name: site.name,
+      description: site.description,
+      url: site.url,
+      email: site.email,
+      telephone: `+${site.phone}`,
+      image: ogImage,
+      logo: logoUrl,
+      priceRange: '₹₹',
+      parentOrganization: { '@id': `${site.url}/#organization` },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.address.line1,
+        addressLocality: site.address.city,
+        addressRegion: site.address.state,
+        postalCode: site.address.postalCode,
+        addressCountry: 'IN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: site.geo.latitude,
+        longitude: site.geo.longitude,
+      },
+      hasMap: site.mapLink,
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '09:00',
+        closes: '19:00',
+      },
+      areaServed: [
+        'United Kingdom',
+        'Canada',
+        'United States',
+        'Australia',
+        'Germany',
+        'Europe',
+      ],
+      sameAs: [site.instagram, site.facebook],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.description,
+      publisher: { '@id': `${site.url}/#organization` },
+      inLanguage: 'en',
+    },
+  ],
 };
 ---
 
@@ -56,6 +114,21 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-7QGFTKG0Q7"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-7QGFTKG0Q7");
+    </script>
+
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -64,13 +137,29 @@ const jsonLd = {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Local SEO geo hints -->
+    <meta name="geo.region" content="IN-HR" />
+    <meta name="geo.placename" content="Kurukshetra, Haryana, India" />
+    <meta
+      name="geo.position"
+      content={`${site.geo.latitude};${site.geo.longitude}`}
+    />
+    <meta name="ICBM" content={`${site.geo.latitude}, ${site.geo.longitude}`} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={`${site.name} — international parcel service from India to UK, Canada, USA, Australia & Europe`}
+    />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -87,6 +176,7 @@ const jsonLd = {
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <slot name="head" />
   </head>
   <body>
     <a href="#main" class="sr-only">Skip to content</a>

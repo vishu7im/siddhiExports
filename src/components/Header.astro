@@ -124,13 +124,15 @@ const current = Astro.url.pathname;
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    flex: none;
   }
   .hdr__wa {
     padding: 0.6rem 1rem;
   }
-  .hdr__wa svg {
+  .hdr__wa :global(svg) {
     width: 20px;
     height: 20px;
+    flex: none;
   }
 
   .hamburger {

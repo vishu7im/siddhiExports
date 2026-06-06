@@ -8,22 +8,125 @@ import Countries from '../components/Countries.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
-import { services } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { site, services, whatsappLink } from '../data/site';
+
+// ── Page-specific structured data ────────────────────────────────────────────
+// Service schema for the core services we want to rank for.
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    'International Parcel Service',
+    'International Courier Service',
+    'Document Courier Service',
+    'Food Parcel Shipping',
+    'Student Parcel Service',
+  ].map((name, i) => ({
+    '@type': 'Service',
+    '@id': `${site.url}/#service-${i + 1}`,
+    name,
+    serviceType: name,
+    description: `${name} from Kurukshetra, Haryana, India to the UK, Canada, USA, Australia, Germany and Europe with doorstep pickup, affordable rates and parcel tracking support.`,
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: [
+      'United Kingdom',
+      'Canada',
+      'United States',
+      'Australia',
+      'Germany',
+      'Europe',
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: `${site.url}/get-quote`,
+      servicePhone: `+${site.phone}`,
+    },
+  })),
+};
+
+// Breadcrumb schema (homepage is the root crumb).
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'International Parcel Service in Kurukshetra',
+      item: `${site.url}/#kurukshetra`,
+    },
+  ],
+};
 ---
 <Layout
-  title="International Parcel & Courier Services from India"
-  description="Send parcels safely from India to the UK, Canada, USA, Australia & Europe. Doorstep pickup, affordable rates, trusted courier network & tracking support. Free quote in under 1 minute."
+  fullTitle="Best International Parcel Service in Kurukshetra | SiddhiExports"
+  description="Best & cheapest international parcel service in Kurukshetra. Send parcels from India to UK, Canada, USA, Australia & Europe. Doorstep pickup & free quote."
   path="/"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  </Fragment>
+
   <Hero />
+
+  <!-- Section 1: About SiddhiExports -->
+  <section class="section" id="about">
+    <div class="container about">
+      <div class="section-head">
+        <span class="eyebrow">About SiddhiExports</span>
+        <h2>A Trusted International Parcel Service from Kurukshetra, Haryana</h2>
+      </div>
+      <div class="about__body">
+        <p>
+          <strong>SiddhiExports</strong> is a professional international parcel
+          service based in Kurukshetra, Haryana, helping students, families and
+          businesses send parcels from India to destinations worldwide. Whether
+          it is a box of homemade food for your child studying in Canada,
+          important documents for a university in the UK, or commercial samples
+          for a client in Germany — we make international shipping simple,
+          affordable and stress-free.
+        </p>
+        <p>
+          As an experienced <strong>international courier service</strong>, we
+          handle everything for you: free doorstep pickup from your home or
+          office, professional packing guidance, customs documentation and
+          end-to-end parcel tracking. Our shipping network includes globally
+          trusted carriers, which means your parcel travels on reliable routes
+          at honest, competitive rates.
+        </p>
+        <p>
+          Thousands of parcels are sent abroad from India every day — but
+          choosing the right <strong>parcel service from India</strong> makes
+          the difference between a smooth delivery and weeks of stress. With
+          SiddhiExports, you get a local team you can call or WhatsApp anytime,
+          backed by an international delivery network that reaches the UK,
+          Canada, USA, Australia, Germany and all of Europe.
+          <a href="/about">Learn more about us</a> or
+          <a href="/get-quote">get your free shipping quote</a> today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Why Choose SiddhiExports -->
   <TrustBadges />
 
+  <!-- Section 3: Countries We Ship To -->
+  <Countries />
+
+  <!-- Section 4: Services We Offer -->
   <section class="section" id="services">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Our Services</span>
-        <h2>What we ship for you</h2>
-        <p>From homemade food to important documents — packed, picked up and delivered with care.</p>
+        <h2>International Shipping Services We Offer</h2>
+        <p>
+          From homemade food to important documents — every parcel is packed,
+          picked up from your doorstep and delivered abroad with care. Explore
+          all our <a href="/services">international shipping services</a>.
+        </p>
       </div>
       <div class="grid grid-3">
         {services.map((s) => <ServiceCard icon={s.icon} title={s.title} text={s.text} />)}
@@ -31,9 +134,157 @@ import { services } from '../data/site';
     </div>
   </section>
 
+  <!-- Section 5: Local SEO — International Parcel Service in Kurukshetra -->
+  <section class="section section--soft" id="kurukshetra">
+    <div class="container local">
+      <div class="section-head">
+        <span class="eyebrow">Local & Trusted</span>
+        <h2>International Parcel Service in Kurukshetra</h2>
+      </div>
+      <div class="local__body">
+        <p>
+          Looking for the <strong>best international parcel service in
+          Kurukshetra</strong>? SiddhiExports is located near Railway Road,
+          Kurukshetra, Haryana — making it easy for local families, university
+          students and businesses to ship parcels abroad without travelling to
+          Delhi or Chandigarh. We serve all of Kurukshetra and nearby towns with
+          <strong>free doorstep pickup</strong>, so you never need to leave home.
+        </p>
+        <p>
+          As the <strong>cheapest international parcel service in
+          Kurukshetra</strong> for most routes, we compare rates across multiple
+          courier partners for every shipment and pass the savings to you — with
+          no hidden charges. Sending a parcel to Canada, the UK, the USA or
+          Australia from Kurukshetra has never been easier: one call or WhatsApp
+          message, and our team handles pickup, packing, customs paperwork and
+          tracking.
+        </p>
+        <ul class="local__points">
+          <li><Icon name="pin" /> Near Railway Road, Kurukshetra, Haryana {site.address.postalCode}</li>
+          <li><Icon name="truck" /> Free doorstep pickup across Kurukshetra & nearby areas</li>
+          <li><Icon name="globe" /> Courier service for Canada, UK, USA, Australia & Europe from Kurukshetra</li>
+          <li><Icon name="clock" /> {site.workingHours}</li>
+        </ul>
+        <div class="local__cta">
+          <a href="/get-quote" class="btn btn--primary">Get a Free Quote</a>
+          <a href="/contact" class="btn btn--ghost">Visit or Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: How Shipping Works -->
   <HowItWorks />
-  <Countries />
+
+  <!-- Section 7: Customer Reviews -->
   <Testimonials />
+
+  <!-- Section 8: Contact Information -->
+  <section class="section section--soft" id="contact-info">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Contact SiddhiExports — International Courier Service in Kurukshetra</h2>
+        <p>
+          Ready to ship? Reach us on phone, WhatsApp or email — or visit our
+          office near Railway Road, Kurukshetra.
+        </p>
+      </div>
+      <div class="grid grid-3 cinfo">
+        <div class="card cinfo__card">
+          <span class="icon-badge"><Icon name="phone" /></span>
+          <h3>Phone & WhatsApp</h3>
+          <p>
+            <a href={`tel:+${site.phone}`}>{site.phoneDisplay}</a><br />
+            <a href={whatsappLink()} target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </p>
+        </div>
+        <div class="card cinfo__card">
+          <span class="icon-badge"><Icon name="mail" /></span>
+          <h3>Email</h3>
+          <p>
+            <a href={`mailto:${site.email}`}>{site.email}</a><br />
+            We reply within business hours.
+          </p>
+        </div>
+        <div class="card cinfo__card">
+          <span class="icon-badge"><Icon name="pin" /></span>
+          <h3>Office & Hours</h3>
+          <p>
+            {site.address.line1}, {site.address.city}, {site.address.state}
+            {site.address.postalCode}<br />
+            {site.workingHours}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
   <FAQ />
+
   <FinalCTA />
 </Layout>
+
+<style>
+  .about__body,
+  .local__body {
+    max-width: 820px;
+    margin-inline: auto;
+  }
+  .about__body p,
+  .local__body p {
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .about__body strong,
+  .local__body strong {
+    color: var(--navy);
+  }
+  .about__body a,
+  .local__body a:not(.btn) {
+    font-weight: 600;
+    color: var(--orange-600);
+  }
+
+  .local__points {
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+    margin: 1.4rem 0;
+    padding: 0;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .local__points li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .local__points :global(svg) {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    color: var(--orange-600);
+  }
+  .local__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+  }
+
+  .cinfo__card h3 {
+    margin-bottom: 0.35rem;
+  }
+  .cinfo__card p {
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.7;
+  }
+  .cinfo__card a {
+    font-weight: 600;
+    color: var(--orange-600);
+  }
+</style>

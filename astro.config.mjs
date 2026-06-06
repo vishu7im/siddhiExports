@@ -15,7 +15,20 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://siddhiexports.in',
   // base: '/siddhiExports', // <-- uncomment ONLY if NOT using a custom domain
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // lastmod = build date; changefreq/priority are hints for crawlers.
+      serialize(item) {
+        const isHome = item.url === 'https://siddhiexports.in/';
+        return {
+          ...item,
+          lastmod: new Date().toISOString(),
+          changefreq: isHome ? 'weekly' : 'monthly',
+          priority: isHome ? 1.0 : 0.7,
+        };
+      },
+    }),
+  ],
   build: {
     inlineStylesheets: 'auto',
   },

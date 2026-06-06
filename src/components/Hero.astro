@@ -7,11 +7,14 @@ import Icon from "./Icon.astro";
   <div class="container hero__inner">
     <div class="hero__copy">
       <span class="eyebrow">From India · Worldwide Delivery</span>
-      <h1>Fast & Reliable International Parcel Services From India</h1>
+      <h1>
+        Best International Parcel Service in Kurukshetra
+        <span class="hero__h1-sub">Fast & Affordable Worldwide Shipping</span>
+      </h1>
       <p class="hero__sub">
-        Send parcels safely to the UK, Canada, USA, Australia & Europe with a
-        trusted international shipping network. Doorstep pickup, honest rates &
-        tracking support.
+        SiddhiExports is a trusted international courier service helping you
+        send parcels from India to the UK, Canada, USA, Australia, Germany &
+        Europe. Doorstep pickup, honest rates & parcel tracking support.
       </p>
       <div class="hero__cta">
         <a href="/get-quote" class="btn btn--primary btn--lg"
@@ -40,7 +43,7 @@ import Icon from "./Icon.astro";
         src="/images/globe.png"
         width="640"
         height="520"
-        alt="International parcel delivery from India to the world"
+        alt="SiddhiExports international parcel delivery service from Kurukshetra, India to UK, Canada, USA, Australia and Europe"
         fetchpriority="high"
       />
     </div>
@@ -60,6 +63,13 @@ import Icon from "./Icon.astro";
     align-items: center;
     gap: clamp(1.5rem, 4vw, 3rem);
     padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .hero__h1-sub {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.62em;
+    font-weight: 600;
+    color: var(--orange-600);
   }
   .hero__sub {
     font-size: clamp(1.05rem, 1.6vw, 1.2rem);
